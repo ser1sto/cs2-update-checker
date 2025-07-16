@@ -1,7 +1,16 @@
 name: 🛠️ Build and Push Docker Image
 
 on:
-  workflow_dispatch:  # Manual trigger only
+  workflow_dispatch:
+    inputs:
+      architecture:
+        description: 'Target architecture (amd64 or arm64)'
+        required: true
+        default: 'amd64'
+        type: choice
+        options:
+          - amd64
+          - arm64
 
 jobs:
   build-and-push:
@@ -17,9 +26,16 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
     - name: Build Docker image
       run: |
-        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/cs2-update-docker:latest .
+        docker buildx build \
+          --platform linux/${{ github.event.inputs.architecture }} \
+          --tag ${{ secrets.DOCKERHUB_USERNAME }}/cs2-update-docker:${{ github.event.inputs.architecture }} \
+          --output type=docker \
+          .
 
     - name: Push Docker image
       run: |

@@ -39,4 +39,4 @@ jobs:
 
     - name: Push Docker image
       run: |
-        docker push ${{ secrets.DOCKERHUB_USERNAME }}/cs2-update-docker:latest
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/cs2-update-docker:${{ github.event.inputs.architecture }}

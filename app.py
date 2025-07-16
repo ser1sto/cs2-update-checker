@@ -11,7 +11,7 @@ load_dotenv()
 RSS_URL = os.getenv("RSS_URL")
 WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL")
 USER_ID = os.getenv("USER_ID")  # Discord user ID
-TIME_THRESHOLD_HOURS = 3  # ile godzin uznajemy za "nowość"
+TIME_THRESHOLD_HOURS = int(os.getenv("TIME_THRESHOLD_HOURS"))  # Hours to consider as a new update
 
 def get_latest_rss_entry():
     feed = feedparser.parse(RSS_URL)

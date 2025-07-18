@@ -11,7 +11,7 @@ load_dotenv()
 RSS_URL = os.getenv("RSS_URL")
 WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL")
 USER_ID = os.getenv("USER_ID")  # Discord user ID
-TIME_THRESHOLD_HOURS = int(os.getenv("TIME_THRESHOLD_HOURS"))  # Hours to consider as a new update
+TIME_THRESHOLD_MINUTES = int(os.getenv("TIME_THRESHOLD_MINUTES"))  # minutes to consider as a new update
 
 def get_latest_rss_entry():
     feed = feedparser.parse(RSS_URL)
@@ -41,7 +41,7 @@ def main():
 
     print(f"Data publikacji: {pub_date.isoformat()} | Różnica: {delta}")
 
-    if delta <= timedelta(hours=TIME_THRESHOLD_HOURS):
+    if delta <= timedelta(minutes=TIME_THRESHOLD_MINUTES):
         print("Wykryto nową aktualizację!")
         send_discord_notification(title, link)
     else:

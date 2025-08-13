@@ -19,11 +19,15 @@ def get_latest_rss_entry():
         return None
     entry = feed.entries[0]
     pub_date = parsedate_to_datetime(entry.published)
-    return pub_date, entry.title, entry.link
+    summary = str(entry.summary)
+    return pub_date, entry.title, entry.link, summary
 
-def send_discord_notification(title, link):
+def send_discord_notification(title, link, summary_keyphrase=''):
+    content = f"<@{USER_ID}> 📰 Nowa aktualizacja CS2 na Steam:\n**{title}**\n{link}"
+    if summary_keyphrase:
+        content += f"\n\n**Podsumowanie:** {summary_keyphrase}"
     data = {
-        "content": f"<@{USER_ID}> 📰 Nowa aktualizacja CS2 na Steam:\n**{title}**\n{link}",
+        "content": content,
         "username": "Jan Bot"
     }
     requests.post(WEBHOOK_URL, json=data)
@@ -35,7 +39,7 @@ def main():
         print("Błąd pobierania danych RSS.")
         return
 
-    pub_date, title, link = result
+    pub_date, title, link, summary = result
     now = datetime.now(timezone.utc)
     delta = now - pub_date
 
@@ -43,7 +47,13 @@ def main():
 
     if delta <= timedelta(minutes=TIME_THRESHOLD_MINUTES):
         print("Wykryto nową aktualizację!")
-        send_discord_notification(title, link)
+
+        additional_note = ''
+        if 'armory' in summary.lower():
+            additional_note = '⚠️ARMORY MENTIONED⚠️'
+        
+        send_discord_notification(title, link, additional_note)
+        
     else:
         print("Brak nowych aktualizacji.")
 

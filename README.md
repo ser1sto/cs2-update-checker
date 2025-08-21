@@ -20,7 +20,7 @@ It is designed to be **lightweight**, **automated**, and **easily deployable** u
 
 - NTFY application setup:
   1. Install the ntfy app on your phone (Android & iOS)
-  2. Subscribe to your chosen topic defined in .env 
+  2. Subscribe to your chosen topic defined in `.env`
 - Push notification will be sent if armory is mentioned in release notes.
 
 ---

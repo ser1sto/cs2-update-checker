@@ -16,6 +16,14 @@ It is designed to be **lightweight**, **automated**, and **easily deployable** u
 
 ---
 
+## 🔔 Enable Mobile Notifiaction
+
+1. Install the ntfy app on your phone (Android & iOS)
+2. Subscribe to your chosen topic defined in .env 
+- Push notification will be sent if armory is mentioned in release notes.
+
+---
+
 ## 🛠️ Build the image
 
 ``` docker build -t test-app . ```

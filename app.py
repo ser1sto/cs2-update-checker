@@ -12,6 +12,8 @@ RSS_URL = os.getenv("RSS_URL")
 WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL")
 USER_ID = os.getenv("USER_ID")  # Discord user ID
 TIME_THRESHOLD_MINUTES = int(os.getenv("TIME_THRESHOLD_MINUTES"))  # minutes to consider as a new update
+NTFY_TOPIC = os.getenv("NTFY_TOPIC")
+NTFY_URL = f"https://ntfy.sh/{NTFY_TOPIC}"
 
 def get_latest_rss_entry():
     feed = feedparser.parse(RSS_URL)
@@ -32,6 +34,16 @@ def send_discord_notification(title, link, summary_keyphrase=''):
     }
     requests.post(WEBHOOK_URL, json=data)
 
+def send_ntfy_notification(message):
+    try:
+        response = requests.post(NTFY_URL, data=message.encode('utf-8'))
+        if response.status_code == 200:
+            print("Powiadomienie ntfy wysłane.")
+        else:
+            print(f"Błąd wysyłania ntfy: {response.status_code}")
+    except Exception as e:
+        print(f"Wyjątek przy wysyłaniu ntfy: {e}")
+
 def main():
     print("Sprawdzanie RSS CS2...")
     result = get_latest_rss_entry()
@@ -51,6 +63,7 @@ def main():
         additional_note = ''
         if 'armory' in summary.lower():
             additional_note = '⚠️ARMORY MENTIONED⚠️'
+            send_ntfy_notification('Aktualizacja CS2 zawiera wzmiankę o Armory!)')
         
         send_discord_notification(title, link, additional_note)
         

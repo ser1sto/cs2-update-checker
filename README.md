@@ -25,7 +25,7 @@ It is designed to be **lightweight**, **automated**, and **easily deployable** u
 
 ---
 
-## 🛠️ Build the image
+## 🛠️ Build The Image
 
 ``` docker build -t test-app . ```
 

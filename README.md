@@ -10,8 +10,8 @@ It is designed to be **lightweight**, **automated**, and **easily deployable** u
 
 - A cron job runs every **15 minutes** on the Raspberry Pi.
 - The job:
-  1. 🛳️ Pulls the latest Docker image from Docker Hub
-  2. 🚀 Runs the container using the `.env` file - necessary variables can be found in .env.template
+  1. Pulls the latest Docker image from Docker Hub
+  2. Runs the container using the `.env` file - necessary variables can be found in .env.template
 - The container performs the update check and exits.
 
 ---

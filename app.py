@@ -4,6 +4,8 @@ import requests
 from datetime import datetime, timezone, timedelta
 from email.utils import parsedate_to_datetime
 from dotenv import load_dotenv
+import smtplib
+from email.message import EmailMessage
 
 load_dotenv()
 
@@ -14,6 +16,25 @@ USER_ID = os.getenv("USER_ID")  # Discord user ID
 TIME_THRESHOLD_MINUTES = int(os.getenv("TIME_THRESHOLD_MINUTES"))  # minutes to consider as a new update
 NTFY_TOPIC = os.getenv("NTFY_TOPIC")
 NTFY_URL = f"https://ntfy.sh/{NTFY_TOPIC}"
+EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")  # sender email
+EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")  # google app password
+RECEIVER = os.getenv("RECEIVER")  # receiver email
+
+
+def send_email():
+    msg = EmailMessage()
+    msg['Subject'] = 'Armory update detected!'
+    msg['From'] = EMAIL_ADDRESS
+    msg['To'] = RECEIVER
+    msg.set_content('Armory update detected!')
+
+    try:
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
+            smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+            smtp.send_message(msg)
+            print("E-mail został pomyślnie wysłany!")
+    except Exception as e:
+        print(f"Wystąpił błąd podczas wysyłania e-maila: {e}")
 
 def get_latest_rss_entry():
     feed = feedparser.parse(RSS_URL)
@@ -63,7 +84,8 @@ def main():
         additional_note = ''
         if 'armory' in summary.lower():
             additional_note = '⚠️ARMORY MENTIONED⚠️'
-            send_ntfy_notification('Aktualizacja CS2 zawiera wzmiankę o Armory!)')
+            send_ntfy_notification('Aktualizacja CS2 zawiera wzmiankę o Armory!')
+            send_email()
         
         send_discord_notification(title, link, additional_note)
         

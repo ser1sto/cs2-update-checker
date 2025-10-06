@@ -82,7 +82,7 @@ def main():
         print("Wykryto nową aktualizację!")
 
         additional_note = ''
-        if 'armory' in summary.lower():
+        if 'to' in summary.lower():
             additional_note = '⚠️ARMORY MENTIONED⚠️'
             send_ntfy_notification('Aktualizacja CS2 zawiera wzmiankę o Armory!')
             send_email()

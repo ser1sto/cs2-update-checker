@@ -66,6 +66,8 @@ def send_ntfy_notification(message):
         print(f"Wyjątek przy wysyłaniu ntfy: {e}")
 
 def main():
+    print('.env adres mail' + EMAIL_ADDRESS)
+    print('.env haslo mail' + EMAIL_PASSWORD)
     print("Sprawdzanie RSS CS2...")
     result = get_latest_rss_entry()
     if not result:

@@ -17,8 +17,12 @@ TIME_THRESHOLD_MINUTES = int(os.getenv("TIME_THRESHOLD_MINUTES"))  # minutes to 
 NTFY_TOPIC = os.getenv("NTFY_TOPIC")
 NTFY_URL = f"https://ntfy.sh/{NTFY_TOPIC}"
 EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")  # sender email
-EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")  # google app password
 RECEIVER = os.getenv("RECEIVER")  # receiver email
+pwd = os.getenv("EMAIL_PASSWORD") # google app password
+if pwd and ((pwd.startswith("'") and pwd.endswith("'")) or (pwd.startswith('"') and pwd.endswith('"'))):
+    pwd = pwd[1:-1]
+EMAIL_PASSWORD = pwd
+
 
 
 def send_email():

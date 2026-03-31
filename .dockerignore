@@ -3,5 +3,6 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
-*.log
-*.sqlite3
+appdata/
+.gitignore
+README.md

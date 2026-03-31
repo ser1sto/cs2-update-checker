@@ -2,6 +2,7 @@ services:
   cs2updatebot:
     image: seristo/cs2-update-docker:arm64
     container_name: cs2updatebot
+    user: "1000:1000"
     env_file:
       - .env
     volumes:

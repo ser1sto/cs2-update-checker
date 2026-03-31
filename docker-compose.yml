@@ -1,0 +1,9 @@
+services:
+  cs2updatebot:
+    image: seristo/cs2-update-docker:arm64
+    container_name: cs2updatebot
+    env_file:
+      - .env
+    volumes:
+      - ./appdata:/app/data
+    restart: unless-stopped

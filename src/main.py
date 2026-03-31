@@ -125,13 +125,10 @@ def monitor_updates():
 
                     send_discord_notification(new_entry_link, armory_check)
 
-                else:
-                    print('No new updates!')
 
         except Exception as e:
             print(e)
 
-        print('waiting...')
         time.sleep(TIME_THRESHOLD_MINUTES*60)
 
 

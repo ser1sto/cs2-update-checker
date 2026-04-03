@@ -22,6 +22,7 @@ services:
       - WATCHTOWER_POLL_INTERVAL=300
       - WATCHTOWER_WARN_ON_HEAD_FAILURE_ONLY=true
       - TZ=Europe/Warsaw
+      - LOG_LEVEL=warn
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ${HOME}/.docker/config.json:/config.json:ro

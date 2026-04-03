@@ -20,6 +20,7 @@ services:
       - WATCHTOWER_CLEANUP=true
       - WATCHTOWER_LABEL_ENABLE=true
       - WATCHTOWER_POLL_INTERVAL=300
+      - WATCHTOWER_WARN_ON_HEAD_FAILURE_ONLY=true
       - TZ=Europe/Warsaw
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -27,3 +28,8 @@ services:
     restart: unless-stopped
     security_opt:
       - no-new-privileges:true
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"

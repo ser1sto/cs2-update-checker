@@ -20,8 +20,8 @@ services:
       - WATCHTOWER_CLEANUP=true
       - WATCHTOWER_LABEL_ENABLE=true
       - WATCHTOWER_POLL_INTERVAL=300
-      - TZ=Europe/Warsaw
       - WATCHTOWER_LOG_LEVEL=warn
+      - TZ=Europe/Warsaw
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ${HOME}/.docker/config.json:/config.json:ro

@@ -1,8 +1,13 @@
 __pycache__/
-.env
 *.pyc
 *.pyo
 *.pyd
+.env
 appdata/
+prometheus/
+prometheus_data/
+docker-compose.yml
 .gitignore
+.git
 README.md
+.idea/

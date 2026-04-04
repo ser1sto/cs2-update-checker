@@ -1,9 +1,15 @@
 .env
+.idea/
+.vscode/
+__pycache__/
 *.pyc
 *.pyo
 *.pyd
 .venv
 venv/
-.idea/
-__pycache__/
 appdata/
+*.tmp
+*.log
+prometheus/data/
+prometheus_data/
+.docker/

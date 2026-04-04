@@ -18,7 +18,6 @@ To prevent SD card degradation, the stack is pre-configured with:
 - **Minimal I/O Operations:** The application and infrastructure are configured to write to the disk only when necessary.
 - **Log Rotation:** Limits Docker logs to 10MB per file with a maximum of 3 archives.
 - **Minimal Logging:** Watchtower is set to `LOG_LEVEL=warn` to reduce unnecessary write operations.
-- **Resource Efficiency:** Lightweight Alpine-based (or slim) images for minimal RAM footprint.
 
 ## Prerequisites
 

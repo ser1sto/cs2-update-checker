@@ -1,0 +1,11 @@
+apiVersion: 1
+
+providers:
+  - name: 'cs2updatebot dashboards'
+    orgId: 1
+    folder: 'cs2updatebot stats'
+    type: file
+    disableDeletion: false
+    editable: true
+    options:
+      path: /var/lib/grafana/dashboards

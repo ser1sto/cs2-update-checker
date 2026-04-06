@@ -44,6 +44,8 @@ services:
     image: prom/prometheus@sha256:dda13e28bf95a5e5ca5b8ed56852006094c1c8e8871d9c9dbeed30aa6e55271f
     container_name: prometheus
     restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
     user: "1000:1000"
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
@@ -67,9 +69,36 @@ services:
       - network-bridge
     ports:
       - "9090:9090"
+  
+  grafana:
+    image: grafana/grafana@sha256:83749231c3835e390a3144e5e940203e42b9589761f20ef3169c716e734ad505
+    container_name: grafana
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    user: "1000:1000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_ANALYTICS_REPORTING_ENABLED=false
+      - GF_LOG_LEVEL=warn
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro      
+      - ./grafana/dashboards:/var/lib/grafana/dashboards:ro      
+      - grafana_data:/var/lib/grafana
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - network-bridge
+    ports:
+      - "3000:3000"
+
 networks:
   network-bridge:
     driver: bridge
 
 volumes:
   prometheus_data:
+  grafana_data:

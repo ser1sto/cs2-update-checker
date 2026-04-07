@@ -35,16 +35,17 @@ PROM_UPDATES = Counter('bot_updates_detected_total', 'Count of actual game updat
 PROM_LAST_UPDATE_TIME = Gauge('bot_last_update_timestamp_seconds', 'Unix timestamp of the last detected update')
 
 # Init Prometheus metrics
-PROM_RESPONSES.labels(result='success').inc(0)
-PROM_RESPONSES.labels(result='empty').inc(0)
-PROM_ERRORS.labels(type='rss_parse').inc(0)
-PROM_ERRORS.labels(type='disk_write').inc(0)
-PROM_ERRORS.labels(type='email').inc(0)
-PROM_ERRORS.labels(type='discord').inc(0)
-PROM_ERRORS.labels(type='ntfy').inc(0)
-PROM_ERRORS.labels(type='general_loop').inc(0)
-PROM_CHECKS.inc(0)
-PROM_UPDATES.inc(0)
+def init_prometheus_metrics():
+    PROM_RESPONSES.labels(result='success').inc(0)
+    PROM_RESPONSES.labels(result='empty').inc(0)
+    PROM_ERRORS.labels(type='rss_parse').inc(0)
+    PROM_ERRORS.labels(type='disk_write').inc(0)
+    PROM_ERRORS.labels(type='email').inc(0)
+    PROM_ERRORS.labels(type='discord').inc(0)
+    PROM_ERRORS.labels(type='ntfy').inc(0)
+    PROM_ERRORS.labels(type='general_loop').inc(0)
+    PROM_CHECKS.inc(0)
+    PROM_UPDATES.inc(0)
 
 
 def get_latest_rss_entry():
@@ -182,6 +183,7 @@ def main():
     print('starting app...')
     print('starting Prometheus metrics on port 8000...')
     start_http_server(8000)
+    init_prometheus_metrics()
     monitor_updates()
 
 if __name__ == "__main__":

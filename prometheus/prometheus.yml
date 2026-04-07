@@ -10,3 +10,7 @@ scrape_configs:
   - job_name: "cs2-update-bot-scraper"
     static_configs:
       - targets: ["cs2updatebot:8000"]
+
+  - job_name: 'raspberry_pi'
+    static_configs:
+      - targets: ['node-exporter:9100']

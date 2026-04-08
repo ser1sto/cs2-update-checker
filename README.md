@@ -100,7 +100,7 @@ The `prometheus/` and `grafana/` directories contain an observability stack for 
 
 ### Accessing Grafana
 
-Open `http://<your-pi-ip>:3000` in a browser. Default credentials are `admin` / `admin` — you will be prompted to change them on first login.
+Open `http://<your-pi-ip>:3000` in a browser. Default credentials are `admin` / `admin` — you will be prompted to change them on first login. A pre-built dashboard is available at `grafana/dashboards/bot_dashboards.json` and is provisioned automatically on startup.
 
 ### Prometheus
 

@@ -11,6 +11,7 @@ A lightweight bot that monitors the CS2 RSS feed for new updates and sends notif
   - E-mail (SMTP) – useful for further automation on mobile
 - Runs as a Docker container on ARM64 (Raspberry Pi)
 - Automatic image updates via Watchtower
+- Monitoring stack: Prometheus, Node Exporter, and Grafana
 
 ## Optimization for Raspberry Pi (SD Card Longevity)
 
@@ -53,7 +54,7 @@ nano .env
 | `EMAIL_ADDRESS` | Sender e-mail address |
 | `EMAIL_PASSWORD` | Sender e-mail password (app password recommended) |
 | `RECEIVER` | Recipient e-mail address |
-| `LAST_ENTRY_PATH` | Path inside the container where the last entry is stored. Must be set to /app/data/last_entry.json to work with the default volume mapping. |
+| `LAST_ENTRY_PATH` | Path inside the container where the last entry is stored. Must be set to `/app/data/last_entry.json` to work with the default volume mapping. |
 
 ### 3. Log in to Docker Hub
 
@@ -84,6 +85,30 @@ The stack includes Watchtower, which automatically checks for new versions of th
 ## CI/CD
 
 The repository includes a GitHub Actions workflow (`.github/workflows/`) that builds and pushes a new `arm64/amd64` Docker image to Docker Hub on dispatch. Combined with Watchtower, this creates a fully automated deployment pipeline.
+
+## Monitoring (Prometheus + Node Exporter + Grafana)
+
+The `prometheus/` and `grafana/` directories contain an observability stack for monitoring host system health and container metrics.
+
+### Components
+
+| Service | Default Port | Description |
+|---|---|---|
+| Prometheus | `9090` | Scrapes and stores metrics |
+| Node Exporter | `9100` | Exposes host system metrics (CPU, RAM, disk) |
+| Grafana | `3000` | Visualizes metrics via dashboards |
+
+### Accessing Grafana
+
+Open `http://<your-pi-ip>:3000` in a browser. Default credentials are `admin` / `admin` — you will be prompted to change them on first login.
+
+### Prometheus
+
+Prometheus is configured via `prometheus/prometheus.yml`. By default it scrapes Node Exporter at `localhost:9100`. Additional scrape targets can be added in the `scrape_configs` section of that file.
+
+### Node Exporter
+
+Node Exporter runs as a container and exposes hardware and OS-level metrics at `http://<your-pi-ip>:9100/metrics`. Prometheus scrapes this endpoint automatically on each configured interval.
 
 ## Stopping the stack
 

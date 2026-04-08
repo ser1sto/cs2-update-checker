@@ -74,7 +74,7 @@ docker compose up -d
 ```bash
 docker compose ps
 #(info logs will not be shown due to log level parameter)
-docker compose logs -f watchtower
+docker compose logs -f
 ```
 
 ## Automatic Updates

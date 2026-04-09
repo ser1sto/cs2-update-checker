@@ -90,6 +90,10 @@ The repository includes a GitHub Actions workflow (`.github/workflows/`) that bu
 
 The `prometheus/` and `grafana/` directories contain an observability stack for monitoring host system health and container metrics.
 
+![App Dashboard](screenshots/grafana-dashboard1.png)
+
+![Infrastracture Dashboard](screenshots/grafana-dashboard2.png)
+
 ### Components
 
 | Service | Default Port | Description |

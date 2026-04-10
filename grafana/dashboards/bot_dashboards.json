@@ -185,7 +185,7 @@
       "id": 1,
       "options": {
         "colorMode": "value",
-        "graphMode": "area",
+        "graphMode": "none",
         "justifyMode": "auto",
         "orientation": "auto",
         "percentChangeColorMode": "standard",
@@ -1586,6 +1586,6 @@
   "timezone": "browser",
   "title": "cs2updatebot",
   "uid": "adt98zv",
-  "version": 4,
+  "version": 5,
   "weekStart": ""
 }
